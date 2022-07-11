@@ -10,5 +10,4 @@ const PostRender = () => {
     </Row>
   )
 };
-
 export default PostRender;
