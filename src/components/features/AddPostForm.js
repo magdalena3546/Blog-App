@@ -27,7 +27,7 @@ const AddPostForm = () => {
     navigate('../', { replace: true });
   }
 return(
-  <form onSubmit={handleSubmit}>
+  <form>
     <Row>
       <Col md={5}>
         <Form.Group className="my-3">
@@ -56,7 +56,7 @@ return(
         </Form.Group>
       </Col>
     </Row>
-    <Button variant="primary" onClick={handleSubmit}>Add post</Button>
+    <Button variant="primary" onSubmit={handleSubmit}>Add post</Button>
   </form>
 )
 };
