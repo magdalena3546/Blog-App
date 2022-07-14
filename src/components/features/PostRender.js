@@ -6,7 +6,7 @@ const PostRender = () => {
   const posts = useSelector(getAllPosts);
   return(
     <Row xs={1} md={3}>
-      {posts.map(post => <PostDescription key={post.id} {...post} postId={post.id}  />)}
+      {posts.map(post => <PostDescription key={post.id} {...post} id={post.id} />)}
     </Row>
   )
 };

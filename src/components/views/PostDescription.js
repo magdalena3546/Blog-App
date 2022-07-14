@@ -9,14 +9,14 @@ const PostDescription = props => {
       <Card className="mt-4">
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
-          <Card.Text><span>Author: </span>{props.author}</Card.Text>
-          <Card.Text><span>Published: </span>{props.publishedDate}</Card.Text>
+          <Card.Text><strong>Author: </strong>{props.author}</Card.Text>
+          <Card.Text><strong>Published: </strong>{props.publishedDate}</Card.Text>
           <Card.Text>{props.shortDescription}</Card.Text>
-          <Button  as={Link} to= {`/post/${props.postId}`} variant="primary">Read more</Button>
+          <Button  as={Link} to= {`/post/${props.id}`} variant="primary">Read more</Button>
         </Card.Body>
       </Card>
     </Col>
   )
 };
 
-export default PostDescription;
+export default PostDescription; 
