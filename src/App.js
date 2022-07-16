@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import About from './components/pages/About';
 import AddPost from './components/pages/AddPost/AddPost';
-import EditPost from './components/pages/EditPost';
+import EditPost from './components/pages/EditPost/EditPost';
 import Home from './components/pages/Home';
 import NotFound from './components/pages/NotFound';
 import Post from './components/pages/Post';
@@ -24,35 +24,41 @@ function App() {
     <
     Route path = "/"
     element = {
-      < Home / >
+      <
+      Home / >
     }
     /> <
     Route path = "/about"
     element = {
-      < About / >
+      <
+      About / >
     }
     /> <
     Route path = "/post/:id"
     element = {
-      < Post / >
+      <
+      Post / >
     }
     /> <
     Route path = "/post/add"
     element = {
-      < AddPost / >
+      <
+      AddPost / >
     }
     /> <
     Route path = "/post/edit/:id"
     element = {
-      < EditPost / >
+      <
+      EditPost / >
     }
     /> <
     Route path = "*"
     element = {
-      < NotFound / >
+      <
+      NotFound / >
     }
-    /> <
-    /Routes> <
+    /> < /
+    Routes > <
     Footer / >
     <
     /Container>

@@ -1,10 +1,10 @@
 import AddPostForm from "../../features/AddPostForm";
-import style from "./AddPost.module.scss"
+import styles from "./AddPost.module.scss"
 const AddPost = () => {
   return(
-    <div className={style.content}>
+    <div className={styles.content}>
       <header>
-        <h2>AddPost</h2>
+        <h2>Add Post</h2>
       </header>
       <AddPostForm />
     </div>
