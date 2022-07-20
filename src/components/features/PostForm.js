@@ -4,6 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from "react-hook-form";
 
 const PostForm = ({action, actionText, ...props}) => {
   const [title, setTitle] = useState(props.title || '');
@@ -11,26 +16,36 @@ const PostForm = ({action, actionText, ...props}) => {
   const [publishedDate, setPublishedDate] = useState(props.publishedDate ||'');
   const [shortDescription, setShortDescription] = useState(props.shortDescription ||'');
   const [content, setContent] = useState(props.content || '');
-
-  const handleSubmit = e =>{
-    e.preventDefault();
-    action({ title, author, publishedDate, shortDescription, content});
+  const [contentError, setContentError] = useState(false);
+  const [dateError, setDateError] = useState(false);
+  const handleSubmit = () =>{
+    setContentError(!content);
+    setDateError(!publishedDate);
+    if (content && publishedDate){
+      action({ title, author, publishedDate, shortDescription, content});
+    }
   }
+  const { register, handleSubmit: validate, formState: { errors } } = useForm();
 return(
   <form>
     <Row>
       <Col md={5}>
         <Form.Group className="my-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control value={title}  onChange={e => setTitle(e.target.value)} type="text" placeholder="Enter title" />
+          <Form.Control {...register("title", { required: true, minLength: 3 })} value={title}  onChange={e => setTitle(e.target.value)} type="text" placeholder="Enter title" />
+          {errors.title?.type === 'required' && <small className="d-block form-text text-danger mt-2">This field is required</small>}
+          {errors.title?.type === 'minLength' && <small className="d-block form-text text-danger mt-2">The title is too short (min is 3)</small>}
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Author</Form.Label>
-          <Form.Control type="text" value={author} placeholder="Enter author" onChange={e => setAuthor(e.target.value)}/>
+          <Form.Control {...register("author", { required: true, minLength: 3 })} type="text" value={author} placeholder="Enter author" onChange={e => setAuthor(e.target.value)}/>
+          {errors.title?.type === 'required' && <small className="d-block form-text text-danger mt-2">This field is required</small>}
+          {errors.title?.type === 'minLength' && <small className="d-block form-text text-danger mt-2">Author is too short (min is 3)</small>}
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Published</Form.Label>
-          <Form.Control type="text" onChange={e => setPublishedDate(e.target.value)} value={publishedDate} placeholder="Enter date" />
+          <DatePicker selected={publishedDate} onChange={ (date) => setPublishedDate(date)} placeholder="Enter date" />
+          {dateError && <small className="d-block form-text text-danger mt-2">Date is required</small>}
         </Form.Group>
       </Col>
     </Row>
@@ -38,15 +53,18 @@ return(
       <Col>
         <Form.Group className="mb-3">
           <Form.Label>Short description</Form.Label>
-          <Form.Control as="textarea" value={shortDescription} onChange={e => setShortDescription(e.target.value)}rows={4} placeholder = "Leave a comment here" />
+          <Form.Control {...register("author", { required: true, minLength: 20 })} as="textarea" value={shortDescription} onChange={e => setShortDescription(e.target.value)}rows={4} placeholder = "Leave a comment here" />
+          {errors.title?.type === 'required' && <small className="d-block form-text text-danger mt-2">This field is required</small>}
+          {errors.title?.type === 'minLength' && <small className="d-block form-text text-danger mt-2">The shortDescription is too short (min is 20)</small>}
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Main content</Form.Label>
-          <Form.Control as="textarea" value={content} onChange={e => setContent(e.target.value)}rows={10} placeholder = "Leave a comment here" />
+          <ReactQuill  value={content} onChange={setContent} placeholder = "Leave a comment here" />
+          {contentError && <small className="d-block form-text text-danger mt-2">Content can't be empty</small>}
         </Form.Group>
       </Col>
     </Row>
-    <Button variant="primary" onClick={handleSubmit}>{actionText}</Button>
+    <Button variant="primary" onClick={validate(handleSubmit)}>{actionText}</Button>
   </form>
 )
 };
@@ -56,7 +74,7 @@ PostForm.propTypes = {
   author: PropTypes.string,
   title: PropTypes.string,
   shortDescription: PropTypes.string,
-  publishedDate: PropTypes.string,
+  publishedDate: PropTypes.object,
   content: PropTypes.string,
 }
 

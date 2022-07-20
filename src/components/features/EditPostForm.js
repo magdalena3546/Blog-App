@@ -3,6 +3,7 @@ import { editPost, getPostById } from '../../redux/postsRedux';
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import PostForm from './PostForm';
 import { useSelector } from 'react-redux';
+import dateToStr from '../../utils/dateToStr';
 const EditPostForm = () => {
   const {id} = useParams();
   const postData = useSelector(state => getPostById(state, id))

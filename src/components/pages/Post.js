@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getPostById, removeCard, removePost } from "../../redux/postsRedux";
+import { getPostById, removePost } from "../../redux/postsRedux";
 import { Navigate, Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import Modal from 'react-bootstrap/Modal';
+import dateToStr from "../../utils/dateToStr";
+
 
 const Post = () => {
   const {id}= useParams();
@@ -24,8 +26,8 @@ const Post = () => {
         <div >
           <h2>{postData.title}</h2>
           <p className='mt-4'><strong>Author: </strong>{postData.author}</p>
-          <p><strong>Published: </strong>{postData.publishedDate}</p>
-          <p>{postData.content}</p>
+          <p><strong>Published: </strong>{dateToStr(postData.publishedDate)}</p>
+          <p dangerouslySetInnerHTML={{ __html: postData.content }} />
         </div>
         <div>
             <Button  variant="outline-info" as={Link} to={`/post/edit/${id}`}>Edit</Button>
