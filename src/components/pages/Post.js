@@ -27,6 +27,7 @@ const Post = () => {
           <h2>{postData.title}</h2>
           <p className='mt-4'><strong>Author: </strong>{postData.author}</p>
           <p><strong>Published: </strong>{dateToStr(postData.publishedDate)}</p>
+          <p><strong>Category: </strong>{postData.category}</p>
           <p dangerouslySetInnerHTML={{ __html: postData.content }} />
         </div>
         <div>
